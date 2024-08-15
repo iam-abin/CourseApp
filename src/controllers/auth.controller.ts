@@ -36,8 +36,6 @@ const signin = async (req: Request, res: Response) => {
         user.dataValues.password
     );
 
-    console.log(isSamePassword);
-
     if (!isSamePassword) throw new BadRequestError("Invalid email or password");
     // To remove the password before sending the response
     const { password: _, ...userWithoutPassword } = user.dataValues;

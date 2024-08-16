@@ -1,12 +1,17 @@
 import express, { Router } from "express";
 import courseController from "../controllers/course.controller";
-import { createCourseRequestBodyValidator } from "../utils/validation/course/create.validation";
 import { auth } from "../middlewares";
-import { updateCourseRequestBodyValidator } from "../utils/validation/course/update.validation";
+import {
+    createCourseRequestBodyValidator,
+    updateCourseRequestBodyValidator,
+} from "../utils/validation/course.validation";
+
 const router: Router = express.Router();
 
 // /api/v1/course
+// router.get("/", courseController.getAllCourses);
 router.get("/:courseId", courseController.getCourse);
+router.get("/search/:searchKey", courseController.searchCourse);
 
 router.use(auth);
 router.post("/", createCourseRequestBodyValidator, courseController.addCourse);

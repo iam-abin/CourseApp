@@ -6,7 +6,9 @@ import { updateCourseRequestBodyValidator } from "../utils/validation/course/upd
 const router: Router = express.Router();
 
 // /api/v1/course
+// router.get("/", courseController.getAllCourses);
 router.get("/:courseId", courseController.getCourse);
+router.get("/search/:searchKey", courseController.searchCourse);
 
 router.use(auth);
 router.post("/", createCourseRequestBodyValidator, courseController.addCourse);

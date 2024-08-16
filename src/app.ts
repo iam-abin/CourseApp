@@ -2,8 +2,8 @@ import express, { Application, Request, Response } from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
-import authRoutes from "./routes/authRoutes";
-import courseRoutes from "./routes/courseRoutes";
+import authRoutes from "./routes/auth";
+import courseRoutes from "./routes/course";
 import { errorHandler } from "./middlewares";
 import { NotFoundError } from "./errors";
 

@@ -26,6 +26,21 @@ const getCourse = async (req: Request, res: Response) => {
     res.status(200).json({ course });
 };
 
+// const getAllCourses = async (req: Request, res: Response) => {
+//     const { courseId } = req.params;
+//     const course = await courseRepository.findById(parseInt(courseId));
+//     if (!course) throw new BadRequestError("Invalid courseId");
+//     console.log("course", course);
+//     res.status(200).json({ course });
+// };
+
+const searchCourse = async (req: Request, res: Response) => {
+    const { searchKey } = req.params;
+    const courses = await courseRepository.search(searchKey);
+    console.log("course", courses);
+    res.status(200).json({ courses });
+};
+
 const updateCourse = async (req: Request, res: Response) => {
     const { courseId } = req.params;
     // const { userId } = req.user!;
@@ -51,9 +66,11 @@ const deleteCourse = async (req: Request, res: Response) => {
         // userId,
         parseInt(courseId)
     );
+    console.log(deleteCourse);
+    
     if (!deleteCourse) throw new BadRequestError("Invalid courseId");
     console.log("deleteCourse", deleteCourse);
     res.status(200).json({ deleteCourse });
 };
 
-export default { addCourse, getCourse, updateCourse, deleteCourse };
+export default { addCourse, getCourse, searchCourse, updateCourse, deleteCourse };

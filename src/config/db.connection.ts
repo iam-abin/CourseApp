@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
 //  based on the models we have defined.
 // { force: true } means Sequelize recreate existing whenever we restart server. not a good thing.
 // { force: false } means Sequelize should not drop existing tables or recreate them, so use it.
-const initializeDatabaseConnection = async () => {
+const initializeDatabaseConnection = async (): Promise<void> => {
     try {
         await sequelize.sync({ force: false });
         console.log("Database synchronized");

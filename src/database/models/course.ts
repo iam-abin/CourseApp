@@ -46,7 +46,5 @@ CourseModel.init({
 });
 
 // associations
-CourseModel.hasMany(LessonModel, {foreignKey: 'courseId', as:'lessons'})
-LessonModel.belongsTo(CourseModel, {foreignKey: 'courseId', as:'course'})
-// CourseModel.hasMany(LessonModel)
-// LessonModel.belongsTo(CourseModel)
+CourseModel.hasMany(LessonModel, {foreignKey: 'courseId', as:'lessons'});
+LessonModel.belongsTo(CourseModel, {foreignKey: 'courseId', as:'course'});

@@ -38,6 +38,6 @@ export const updateLessonRequestBodyValidator = [
         .optional()
         .isNumeric()
         .withMessage('Course ID must be a number')
-        .toInt(), // convert to integer
+        .toInt(),
     validateRequest,
 ];

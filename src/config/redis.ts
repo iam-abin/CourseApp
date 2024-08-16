@@ -4,7 +4,7 @@ import { createClient, RedisClientType } from "redis";
 
 export const redisClient: RedisClientType = createClient();
 
-export const connectRedis = async () => {
+export const connectRedis = async (): Promise<void> => {
     try {
         await redisClient.connect();
         console.log("Connected to Redis...🟥");

@@ -48,38 +48,8 @@ export class LessonRepository {
         await addDataToRedis(REDIS_LESSON_KEY, title, JSON.stringify(lesson));
         return lesson;
     }
-
-    // async search(searchKey: string): Promise<LessonModel[]> {
-    //     const cachedLessons = await getDataFromRedis(
-    //         REDIS_LESSON_KEY,
-    //         searchKey
-    //     );
-
-    //     if (cachedLessons) {
-    //         console.log(
-    //             "=======================>THIS IS CACHED SEARCH LESSON DATA"
-    //         );
-    //         return JSON.parse(cachedLessons);
-    //     }
-
-    //     const lessons = await LessonModel.findAll({
-    //         where: {
-    //             title: {
-    //                 [Op.iLike]: `%${searchKey}%`,
-    //             },
-    //         },
-    //         limit: 3,
-    //     });
-
-    //     await addDataToRedis(
-    //         REDIS_LESSON_KEY,
-    //         searchKey,
-    //         JSON.stringify(lessons)
-    //     );
-    //     return lessons;
-    // }
-
-    async updateLesson(lessonId: number, lessonData: Partial<LessonModel>) {
+    
+    async updateLesson(lessonId: number, lessonData: Partial<LessonModel>): Promise<number | null> {
         const [affectedRows] = await LessonModel.update(
             { ...lessonData },
             {

@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
 
-import { BadRequestError, NotAuthorizedError, NotFoundError } from "../errors";
+import { BadRequestError, NotFoundError, NotAuthorizedError } from "../errors";
 import { CourseRepository, LessonRepository } from "../database/repositories";
 import { LessonModel } from "../database/models";
 
 const lessonRepository = new LessonRepository();
 const courseRepository = new CourseRepository();
 
-const addLesson = async (req: Request, res: Response) => {
+const addLesson = async (req: Request, res: Response): Promise<void> => {
     const { title, courseId } = req.body;
-    // const {createdBy}
     const existCourse = await courseRepository.findByCourseId(courseId);
     if (!existCourse) throw new BadRequestError("The course does not exist");
     const lessonExist = await lessonRepository.findLessonBytitle(title);
@@ -19,21 +18,15 @@ const addLesson = async (req: Request, res: Response) => {
     res.status(201).json({ lesson: lesson.dataValues });
 };
 
-const getLesson = async (req: Request, res: Response) => {
+const getLesson = async (req: Request, res: Response): Promise<void> => {
     const { lessonId } = req.params;
     const lesson = await lessonRepository.findById(parseInt(lessonId));
     if (!lesson) throw new BadRequestError("Invalid lessonId");
     res.status(200).json({ lesson });
 };
 
-// const searchLesson = async (req: Request, res: Response) => {
-//     const { searchKey } = req.params;
-//     const lessons = await lessonRepository.search(searchKey);
-//     // console.log("lesson", lessons);
-//     res.status(200).json({ lessons });
-// };
 
-const updateLesson = async (req: Request, res: Response) => {
+const updateLesson = async (req: Request, res: Response): Promise<void> => {
     const { lessonId } = req.params;
     // const { userId } = req.user!;
     const { courseId } = req.body as Partial<LessonModel>;
@@ -55,7 +48,7 @@ const updateLesson = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Lesson updated successfully" });
 };
 
-const deleteLesson = async (req: Request, res: Response) => {
+const deleteLesson = async (req: Request, res: Response): Promise<void> => {
     const { lessonId } = req.params;
     // const { userId } = req.user!;
     const deleteLesson = await lessonRepository.deleteLesson(

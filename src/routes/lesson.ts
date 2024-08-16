@@ -8,11 +8,10 @@ import {
 
 const router: Router = express.Router();
 
-router.use(auth);
 // /api/v1/lesson
-// router.get("/", lessonController.getAllCourses);
 router.get("/:lessonId", lessonController.getLesson);
-// router.get("/search/:searchKey", lessonController.searchCourse);
+
+router.use(auth);
 router.post("/", createLessonRequestBodyValidator, lessonController.addLesson);
 router.patch(
     "/:lessonId",

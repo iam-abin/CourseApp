@@ -94,7 +94,7 @@ export class CourseRepository {
         return courses;
     }
 
-    async updateCourse(courseId: number, courseData: Partial<CourseModel>) {
+    async updateCourse(courseId: number, courseData: Partial<CourseModel>): Promise<number | null> {
         const [affectedRows] = await CourseModel.update(
             { ...courseData },
             {

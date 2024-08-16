@@ -1,11 +1,10 @@
 import { createClient, RedisClientType } from "redis";
 
 // const redisUrl = "redis://127.0.0.1:6379";
-// const DEFAULT_EXPIRATION_INT = 3660;
 
 export const redisClient: RedisClientType = createClient();
 
-export const connectRedis = async () => {
+export const connectRedis = async (): Promise<void> => {
     try {
         await redisClient.connect();
         console.log("Connected to Redis...🟥");

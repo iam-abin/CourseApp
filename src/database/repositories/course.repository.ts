@@ -1,6 +1,6 @@
-import { Op } from "sequelize";
+import { Model, Op } from "sequelize";
 
-import { CourseModel } from "../models";
+import { CourseModel, LessonModel } from "../models";
 import {
     addDataToRedis,
     getDataFromRedis,
@@ -15,7 +15,7 @@ export class CourseRepository {
         return newCourse;
     }
 
-    async findById(courseId: number): Promise<CourseModel | null> {
+    async findByCourseId(courseId: number): Promise<CourseModel | null> {
         const cachedCourse = await getDataFromRedis(
             REDIS_COURSES_KEY,
             courseId.toString()
@@ -26,7 +26,13 @@ export class CourseRepository {
             return JSON.parse(cachedCourse);
         }
 
-        const course = await CourseModel.findByPk(courseId);
+        // If not cached, retrieve the course and its associated lessons from the database
+        const course = await CourseModel.findByPk(courseId,{
+            include:[{
+                model: LessonModel,
+                as: 'lessons'
+            }]
+        });
         await addDataToRedis(
             REDIS_COURSES_KEY,
             courseId.toString(),
@@ -107,9 +113,7 @@ export class CourseRepository {
     async deleteCourse(courseId: number): Promise<number> {
         const course = await CourseModel.destroy({ where: { id: courseId } });
         if (course)
-            await removeDataFromRedis(REDIS_COURSES_KEY).then(() =>
-                console.log("Removed redis search data")
-            );
+            await removeDataFromRedis(REDIS_COURSES_KEY)
         return course;
     }
 }

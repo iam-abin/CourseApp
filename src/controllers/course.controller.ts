@@ -19,7 +19,7 @@ const addCourse = async (req: Request, res: Response) => {
 
 const getCourse = async (req: Request, res: Response) => {
     const { courseId } = req.params;
-    const course = await courseRepository.findById(parseInt(courseId));
+    const course = await courseRepository.findByCourseId(parseInt(courseId));
     if (!course) throw new BadRequestError("Invalid courseId");
     res.status(200).json({ course });
 };
@@ -34,7 +34,7 @@ const searchCourse = async (req: Request, res: Response) => {
 const updateCourse = async (req: Request, res: Response) => {
     const { courseId } = req.params;
     // const { userId } = req.user!;
-    const course = await courseRepository.findById(parseInt(courseId));
+    const course = await courseRepository.findByCourseId(parseInt(courseId));
     if (!course)
         throw new NotFoundError("There is no course with this courseId");
     // if (course.userId !== userId)

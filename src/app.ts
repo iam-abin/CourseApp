@@ -5,6 +5,7 @@ import cors from "cors";
 
 import authRoutes from "./routes/auth";
 import courseRoutes from "./routes/course";
+import lessonRoutes from "./routes/lesson";
 import { errorHandler } from "./middlewares";
 import { NotFoundError } from "./errors";
 import { rateLimiter } from "./middlewares/rateLimiter";
@@ -29,6 +30,7 @@ app.use(morgan("dev"));
 // Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/course", courseRoutes);
+app.use("/api/v1/lesson", lessonRoutes);
 
 app.all("*", (req: Request, res: Response) => {
     throw new NotFoundError();

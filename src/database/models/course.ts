@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../../config/db.connection";
+import { LessonModel } from "./lesson";
 
 export class CourseModel extends Model {
   public id!: number;
@@ -43,3 +44,9 @@ CourseModel.init({
   sequelize,
   tableName: 'courses',
 });
+
+// associations
+CourseModel.hasMany(LessonModel, {foreignKey: 'courseId', as:'lessons'})
+LessonModel.belongsTo(CourseModel, {foreignKey: 'courseId', as:'course'})
+// CourseModel.hasMany(LessonModel)
+// LessonModel.belongsTo(CourseModel)

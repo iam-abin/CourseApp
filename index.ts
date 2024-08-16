@@ -1,10 +1,10 @@
-import "express-async-errors"
+import "express-async-errors";
 import dotenv from "dotenv";
 dotenv.config();
 import { app } from "./src/app";
 import { connectRedis } from "./src/config/redis";
 
-
+// To connect to redis server
 connectRedis();
 
 const PORT = process.env.PORT || 8080;

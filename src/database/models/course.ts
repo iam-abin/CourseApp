@@ -35,6 +35,10 @@ CourseModel.init({
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  // createdBy: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  // },
 }, {
   sequelize,
   tableName: 'courses',

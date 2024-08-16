@@ -8,7 +8,7 @@ export const validateRequest = (
 	req: Request,
 	res: Response,
 	next: NextFunction
-) => {
+): void => {
 	const errors = validationResult(req); // errors contain an object if the above validation fails in signup or signin
 
 	if (!errors.isEmpty()) {

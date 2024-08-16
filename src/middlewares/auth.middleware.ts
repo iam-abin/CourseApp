@@ -17,7 +17,7 @@ declare global {
     }
 }
 
-export const auth =  (req: Request, res: Response, next: NextFunction) => {
+export const auth =  (req: Request, res: Response, next: NextFunction): void => {
     const token = req.cookies.token;
     if (!token) throw new NotAuthorizedError("UnAuthorized Request");
 

@@ -24,7 +24,6 @@ const initializeDatabaseConnection = async () => {
         console.log("Successfully connected to Database...🛢");
     } catch (error) {
         console.log(error);
-        // console.log(process.env.DB_NAME);
         throw new DatabaseConnectionError();
     }
 };

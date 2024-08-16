@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 
 import { BadRequestError } from "../errors";
-
 import { checkPassword, generateHashedPassword } from "../utils/passwordHash";
 import { UserRepository } from "../database/repositories";
 import { createJwtAccessToken } from "../utils/jwt";

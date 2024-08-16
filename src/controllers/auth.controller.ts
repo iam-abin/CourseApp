@@ -29,7 +29,6 @@ const signin = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const user = await userRepository.findByEmail(email);
     if (!user) throw new BadRequestError("Invalid email or password");
-    console.log("user", user);
 
     const isSamePassword = await checkPassword(
         password,

@@ -2,7 +2,8 @@ import "express-async-errors"
 import dotenv from "dotenv";
 dotenv.config();
 import { app } from "./src/app";
-import { connectRedis } from "./src/utils/redis";
+import { connectRedis } from "./src/config/redis";
+
 
 connectRedis();
 

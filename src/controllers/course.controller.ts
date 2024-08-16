@@ -14,7 +14,6 @@ const addCourse = async (req: Request, res: Response) => {
     if (courseExist) throw new BadRequestError("Course already exist");
 
     const newCourse = await courseRepository.createCourse(req.body);
-    console.log(newCourse.dataValues);
     res.status(201).json({ course: newCourse.dataValues });
 };
 
@@ -22,22 +21,13 @@ const getCourse = async (req: Request, res: Response) => {
     const { courseId } = req.params;
     const course = await courseRepository.findById(parseInt(courseId));
     if (!course) throw new BadRequestError("Invalid courseId");
-    console.log("course", course);
     res.status(200).json({ course });
 };
-
-// const getAllCourses = async (req: Request, res: Response) => {
-//     const { courseId } = req.params;
-//     const course = await courseRepository.findById(parseInt(courseId));
-//     if (!course) throw new BadRequestError("Invalid courseId");
-//     console.log("course", course);
-//     res.status(200).json({ course });
-// };
 
 const searchCourse = async (req: Request, res: Response) => {
     const { searchKey } = req.params;
     const courses = await courseRepository.search(searchKey);
-    console.log("course", courses);
+    // console.log("course", courses);
     res.status(200).json({ courses });
 };
 

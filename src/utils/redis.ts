@@ -1,39 +1,26 @@
-import { createClient, RedisClientType } from "redis";
+import { redisClient } from "../config/redis";
 
-// const redisUrl = "redis://127.0.0.1:6379";
-// const DEFAULT_EXPIRATION_INT = 3660;
 
-export const redisClient: RedisClientType = createClient();
-
-export const connectRedis = async () => {
+export const addDataToRedis = async(key: string, subKey: string, data: string) => {
     try {
-        await redisClient.connect();
-        console.log("Connected to Redis...🟥");
-    } catch (error) {
-        throw new Error("Error connecting to redis!!!");
-    }
-};
-
-export const setDataToRedis = async(key: string, data: string) => {
-    try {
-        await redisClient.set(key, data);
+        await redisClient.hSet(key, subKey,  data);
     } catch (error) {
         console.log(error);
         throw new Error("Error setting data to redis");
     }
 };
 
-export const setDataFromRedis = async (key: string) => {
+export const getDataFromRedis = async (key: string, subKey: string) => {
     try {
-        const data = await redisClient.get(key);
-        return data;
+        const cachedData = await redisClient.hGet(key, subKey);
+        return cachedData;
     } catch (error) {
         console.log(error);
         throw new Error("Error getting data from redis");
     }
 };
 
-export const removeRedisData = async (key: string): Promise<void> => {
+export const removeDataFromRedis = async (key: string): Promise<void> => {
     try {
         await redisClient.del(key);
     } catch (error) {

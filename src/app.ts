@@ -17,10 +17,11 @@ app.use(
     cors({
         origin: "*",
         methods: "GET,POST,PUT,PATCH,DELETE",
+        credentials: true, // Allow cookies
     })
 );
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({limit: '500kb'}));
+app.use(express.urlencoded({ extended: true, limit: '500kb' }));
 app.use(cookieParser());
 app.use(rateLimiter);
 

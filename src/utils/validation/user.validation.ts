@@ -20,5 +20,5 @@ export const signinRequestBodyValidator = [
 		.withMessage("You must supply a password")
 		.trim()
 		.escape(),
-	validateRequest, //now errors contain an object if the above validation fails
+	validateRequest,
 ];

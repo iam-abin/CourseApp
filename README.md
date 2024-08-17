@@ -1,7 +1,7 @@
-# Course
+# Course app
 
 
-# Prerequisites
+## Prerequisites
 
 Make sure you have the following installed on your system:
 
@@ -40,7 +40,7 @@ npm install
 
 **Start with these steps**
 
-1. Signup a user with userName, email, password , using signup route.
+1. Signup a user with userName, email, password , using signup route.<br>
   POST http://localhost:8000/api/v1/auth/signup
 eg - 
 ```
@@ -60,10 +60,12 @@ eg -
 }
 ```
 
-3. Then do other tasks using api
-   http://localhost:8000/api/v1/course/<Endpoints...>
+3. Then do other tasks using api endpoints
 
-# Api Endpoints
+## Api documentation
+[courseApp documentation](https://documenter.getpostman.com/view/26404406/2sA3s7kpZ3)
+
+## Api Endpoints
 
 User
 ----
@@ -73,7 +75,14 @@ POST http://localhost:8000/api/v1/auth/signin- for user signup('user' who create
 Course
 -------
 POST http://localhost:8000/api/v1/course - to create a course <br>
-GET http://localhost:8000/api/v1/course/1 - to get a course using courseId <br>
+GET http://localhost:8000/api/v1/course/1 - to get a course using courseId with associated lessons<br>
 GET http://localhost:8000/api/v1/course/Btech Mec - to search a course using course name <br>
 PATCH http://localhost:8000/api/v1/course/1 - to update a course using courseId<br>
 DELETE http://localhost:8000/api/v1/course/1- to delete a course using courseId <br>
+
+Lesson
+-------
+POST http://localhost:8000/api/v1/lesson - to create a lesson <br>
+GET http://localhost:8000/api/v1/lesson/1 - to get a lesson using lessonId <br>
+PATCH http://localhost:8000/api/v1/lesson/1 - to update a lesson using lessonId<br>
+DELETE http://localhost:8000/api/v1/lesson/1- to delete a lesson using lessonId <br>

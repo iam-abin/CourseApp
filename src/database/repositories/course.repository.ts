@@ -22,7 +22,7 @@ export class CourseRepository {
         );
 
         if (cachedCourse) {
-            console.log("=======================>THIS IS CACHED COURSE DATA");
+            console.log("====>>>THIS IS CACHED COURSE DATA");
             return JSON.parse(cachedCourse);
         }
 
@@ -49,14 +49,14 @@ export class CourseRepository {
             courseName
         );
         if (cachedCourse) {
-            console.log("=======================>THIS IS CACHED COURSE DATA");
+            console.log("====>>>THIS IS CACHED COURSE DATA");
             return JSON.parse(cachedCourse);
         }
 
         const course = await CourseModel.findOne({
             where: { courseName },
         });
-        await addDataToRedis(
+        if(course) await addDataToRedis(
             REDIS_COURSES_KEY,
             courseName,
             JSON.stringify(course)
@@ -72,7 +72,7 @@ export class CourseRepository {
 
         if (cachedCourses) {
             console.log(
-                "=======================>THIS IS CACHED SEARCH COURSE DATA"
+                "====>>>THIS IS CACHED SEARCH COURSE DATA"
             );
             return JSON.parse(cachedCourses);
         }
@@ -111,6 +111,7 @@ export class CourseRepository {
     }
 
     async deleteCourse(courseId: number): Promise<number> {
+        // We can do softdelete if needed
         const course = await CourseModel.destroy({ where: { id: courseId } });
         if (course)
             await removeDataFromRedis(REDIS_COURSES_KEY)

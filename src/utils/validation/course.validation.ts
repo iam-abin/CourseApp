@@ -52,6 +52,6 @@ export const updateCourseRequestBodyValidator = [
         .isNumeric()
         .withMessage("Fees must be a number")
         .trim()
-        .escape(), // used to sanitize input by escaping characters that could be used in cross-site scripting (XSS) attacks or other injection vulnerabilities.
-    validateRequest, //now errors contain an object if the above validation fails
+        .escape(),
+    validateRequest,
 ];

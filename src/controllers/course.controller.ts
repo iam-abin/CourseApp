@@ -1,18 +1,20 @@
 import { Request, Response } from "express";
 
-import { BadRequestError, NotAuthorizedError, NotFoundError } from "../errors";
+import { BadRequestError, NotFoundError, NotAuthorizedError } from "../errors";
 import { CourseRepository } from "../database/repositories";
 
 const courseRepository = new CourseRepository();
 
 const addCourse = async (req: Request, res: Response): Promise<void> => {
     const { courseName } = req.body;
-    // const {createdBy}
+    // const { userId } = req.user!;
+
     const courseExist = await courseRepository.findCourseByCourseName(
         courseName
     );
     if (courseExist) throw new BadRequestError("Course already exist");
 
+    // We can also store userId in the table to recognize who created the course
     const newCourse = await courseRepository.createCourse(req.body);
     res.status(201).json({ course: newCourse.dataValues });
 };
@@ -27,7 +29,6 @@ const getCourse = async (req: Request, res: Response): Promise<void> => {
 const searchCourse = async (req: Request, res: Response): Promise<void> => {
     const { searchKey } = req.params;
     const courses = await courseRepository.search(searchKey);
-    // console.log("course", courses);
     res.status(200).json({ courses });
 };
 
@@ -45,7 +46,6 @@ const updateCourse = async (req: Request, res: Response): Promise<void> => {
         // userId,
         req.body
     );
-    // if(!updated) return  res.status(200).json({ message: "Course not updated" });
     res.status(200).json({ message: "Course updated successfully" });
 };
 
@@ -56,7 +56,6 @@ const deleteCourse = async (req: Request, res: Response): Promise<void> => {
         // userId,
         parseInt(courseId)
     );
-    console.log(deleteCourse);
     
     if (!deleteCourse) throw new BadRequestError("Invalid courseId");
     console.log("deleteCourse", deleteCourse);

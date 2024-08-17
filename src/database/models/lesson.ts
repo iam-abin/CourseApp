@@ -53,6 +53,5 @@ LessonModel.init(
 );
 
 // The association is already defined in the Course model, but we can define it here too
-// LessonModel.belongsTo(CourseModel);
 // LessonModel.belongsTo(CourseModel, { foreignKey: 'courseId', as: 'course' });
 

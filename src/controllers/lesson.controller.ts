@@ -9,11 +9,14 @@ const courseRepository = new CourseRepository();
 
 const addLesson = async (req: Request, res: Response): Promise<void> => {
     const { title, courseId } = req.body;
+    // const { userId } = req.user!;
+    
     const existCourse = await courseRepository.findByCourseId(courseId);
     if (!existCourse) throw new BadRequestError("The course does not exist");
     const lessonExist = await lessonRepository.findLessonBytitle(title);
     if (lessonExist) throw new BadRequestError("Lesson already exist");
-
+    
+    // We can also store userId in the table to recognize who created the lesson
     const lesson = await lessonRepository.createLesson(req.body);
     res.status(201).json({ lesson: lesson.dataValues });
 };
